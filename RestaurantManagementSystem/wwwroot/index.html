@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowBite - Premium Restaurant Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Glowing background blobs -->
+    <div class="bg-glow-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">🍳</div>
+                <div class="brand-name">GlowBite</div>
+            </div>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-view="dashboard">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="orders">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            Orders Terminal
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="reservations">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Reservations & Tables
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="inventory">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            Inventory Items
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-view="menu">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            Menu Items
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">
+                    <h1 id="header-view-title">Dashboard Summary</h1>
+                    <p id="header-view-subtitle">Overview of restaurant performance and active tasks</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="btn-refresh-data">🔄 Sync Data</button>
+                    <button class="btn btn-primary" id="btn-quick-order">+ New Order</button>
+                </div>
+            </header>
+
+            <!-- ================= DASHBOARD VIEW ================= -->
+            <section id="view-dashboard" class="view-section active">
+                <!-- Analytics Counters -->
+                <div class="analytics-grid">
+                    <div class="glass-panel stat-card">
+                        <div class="stat-info">
+                            <p>Revenue Today</p>
+                            <h2 id="stat-revenue">$0.00</h2>
+                        </div>
+                        <div class="stat-icon revenue">💵</div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-info">
+                            <p>Orders Fulfilled</p>
+                            <h2 id="stat-orders">0</h2>
+                        </div>
+                        <div class="stat-icon orders">🍕</div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-info">
+                            <p>Active Tables</p>
+                            <h2 id="stat-active-tables">0</h2>
+                        </div>
+                        <div class="stat-icon tables">🪑</div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-info">
+                            <p>Stock Alerts</p>
+                            <h2 id="stat-alerts">0</h2>
+                        </div>
+                        <div class="stat-icon alerts">⚠️</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-layout">
+                    <!-- Daily Sales Hourly Graph representation -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Hourly Paid Sales Today</h3>
+                            <span class="badge badge-paid">Live</span>
+                        </div>
+                        <div class="report-chart-container" id="chart-hourly-sales">
+                            <!-- Injected dynamically by JS -->
+                            <div style="margin: auto; color: var(--text-secondary);">No sales data available today.</div>
+                        </div>
+                    </div>
+
+                    <!-- Low Stock Alerts Panel -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Low Stock Alerts</h3>
+                            <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="app.showRestockModal()">Restock</button>
+                        </div>
+                        <div class="custom-table-container">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Stock</th>
+                                        <th>Min</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-stock-alerts">
+                                    <!-- Injected dynamically -->
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; color: var(--text-secondary);">Stock is optimal. No alerts.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Popular Items Panel -->
+                    <div class="glass-panel grid-col-2">
+                        <div class="section-header">
+                            <h3>Popular Dishes & Sales Today</h3>
+                        </div>
+                        <div class="custom-table-container">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Menu Item</th>
+                                        <th>Quantity Sold</th>
+                                        <th>Gross Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-popular-items">
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; color: var(--text-secondary);">No sales data recorded yet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= ORDERS VIEW ================= -->
+            <section id="view-orders" class="view-section">
+                <div class="section-header">
+                    <h3>Active Orders Kanban Board</h3>
+                    <button class="btn btn-primary" id="btn-create-order-pos">+ Place New Order</button>
+                </div>
+
+                <!-- Kanban Columns -->
+                <div class="kanban-board">
+                    <!-- Column Pending -->
+                    <div class="kanban-column">
+                        <div class="column-header pending">
+                            <span>Pending</span>
+                            <span id="count-pending">0</span>
+                        </div>
+                        <div class="kanban-cards" id="kb-pending"></div>
+                    </div>
+
+                    <!-- Column Preparing -->
+                    <div class="kanban-column">
+                        <div class="column-header preparing">
+                            <span>Preparing</span>
+                            <span id="count-preparing">0</span>
+                        </div>
+                        <div class="kanban-cards" id="kb-preparing"></div>
+                    </div>
+
+                    <!-- Column Served -->
+                    <div class="kanban-column">
+                        <div class="column-header served">
+                            <span>Served</span>
+                            <span id="count-served">0</span>
+                        </div>
+                        <div class="kanban-cards" id="kb-served"></div>
+                    </div>
+
+                    <!-- Column Paid / Closed -->
+                    <div class="kanban-column">
+                        <div class="column-header paid">
+                            <span>Paid</span>
+                            <span id="count-paid">0</span>
+                        </div>
+                        <div class="kanban-cards" id="kb-paid"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= RESERVATIONS VIEW ================= -->
+            <section id="view-reservations" class="view-section">
+                <!-- Visual Table layout -->
+                <div class="glass-panel" style="margin-bottom: 2rem;">
+                    <div class="section-header">
+                        <h3>Visual Table Availability Map</h3>
+                    </div>
+                    <div class="restaurant-layout-grid" id="layout-table-grid">
+                        <!-- Table elements will be injected here -->
+                    </div>
+                </div>
+
+                <div class="dashboard-layout">
+                    <!-- Bookings List -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Upcoming Table Reservations</h3>
+                        </div>
+                        <div class="custom-table-container">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Table</th>
+                                        <th>Guests</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reservations-table-body">
+                                    <!-- Dynamic reservations -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Reserve Table form -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Reserve a Table</h3>
+                        </div>
+                        <form id="form-add-reservation">
+                            <div class="form-group">
+                                <label for="res-customer-name">Customer Name</label>
+                                <input type="text" class="form-control" id="res-customer-name" required placeholder="e.g. Alice Smith">
+                            </div>
+                            <div class="form-group">
+                                <label for="res-customer-phone">Phone Number</label>
+                                <input type="text" class="form-control" id="res-customer-phone" required placeholder="e.g. 555-0100">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="res-guests">Number of Guests</label>
+                                    <input type="number" class="form-control" id="res-guests" min="1" max="12" required value="2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="res-table-select">Assign Table</label>
+                                    <select class="form-control" id="res-table-select" required>
+                                        <!-- Populated from list of available tables -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="res-time">Date & Time</label>
+                                <input type="datetime-local" class="form-control" id="res-time" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Booking</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= INVENTORY VIEW ================= -->
+            <section id="view-inventory" class="view-section">
+                <div class="dashboard-layout">
+                    <!-- Raw Materials Table -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Ingredients Inventory Stock</h3>
+                        </div>
+                        <div class="custom-table-container">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ingredient Name</th>
+                                        <th>In Stock</th>
+                                        <th>Reorder Alert Level</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-table-body">
+                                    <!-- Injected from API -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add Inventory Item form -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Add New Ingredient</h3>
+                        </div>
+                        <form id="form-add-inventory">
+                            <div class="form-group">
+                                <label for="inv-name">Ingredient Name</label>
+                                <input type="text" class="form-control" id="inv-name" required placeholder="e.g. Tomato Sauce">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="inv-qty">Initial Quantity</label>
+                                    <input type="number" class="form-control" id="inv-qty" step="any" min="0" required placeholder="e.g. 5000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inv-unit">Measurement Unit</label>
+                                    <input type="text" class="form-control" id="inv-unit" required placeholder="e.g. g, ml, pcs">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inv-reorder">Reorder Alert level</label>
+                                <input type="number" class="form-control" id="inv-reorder" step="any" min="0" required placeholder="e.g. 1000">
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Add to Inventory</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MENU VIEW ================= -->
+            <section id="view-menu" class="view-section">
+                <div class="dashboard-layout">
+                    <!-- Dishes list -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Current Menu Listings</h3>
+                        </div>
+                        <div class="custom-table-container">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="menu-table-body">
+                                    <!-- Injected from API -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add Menu Item form -->
+                    <div class="glass-panel">
+                        <div class="section-header">
+                            <h3>Create Menu Item & Recipe</h3>
+                        </div>
+                        <form id="form-add-menu-item">
+                            <div class="form-group">
+                                <label for="menu-name">Dish Name</label>
+                                <input type="text" class="form-control" id="menu-name" required placeholder="e.g. Bacon Cheeseburger">
+                            </div>
+                            <div class="form-group">
+                                <label for="menu-category">Category</label>
+                                <select class="form-control" id="menu-category" required>
+                                    <option value="Starter">Starter</option>
+                                    <option value="Main" selected>Main</option>
+                                    <option value="Dessert">Dessert</option>
+                                    <option value="Beverage">Beverage</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="menu-price">Price ($)</label>
+                                <input type="number" class="form-control" id="menu-price" step="0.01" min="0" required placeholder="9.99">
+                            </div>
+                            <div class="form-group">
+                                <label for="menu-description">Description</label>
+                                <textarea class="form-control" id="menu-description" rows="2" placeholder="Describe the dish flavors and presentation..."></textarea>
+                            </div>
+                            
+                            <!-- Recipe mapping sub-section -->
+                            <div class="form-group">
+                                <label>Recipe Ingredients mapping</label>
+                                <div id="recipe-ingredients-list" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <!-- Ingredient drop-downs will be appended here -->
+                                </div>
+                                <button type="button" class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem; padding: 0.4rem;" id="btn-add-recipe-ingredient-row">+ Add Recipe Link</button>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Add Dish to Menu</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ================= MODAL OVERLAYS ================= -->
+    <!-- Order Placement POS Modal -->
+    <div class="modal-overlay" id="modal-pos">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h4>Place New Order (POS Terminal)</h4>
+                <button class="modal-close" onclick="app.closeModal('modal-pos')">&times;</button>
+            </div>
+            <div class="modal-body pos-container">
+                <!-- Left: Menu listings category filters -->
+                <div>
+                    <div class="menu-category-tabs" id="pos-category-tabs">
+                        <span class="category-tab active" data-cat="all">All Items</span>
+                        <span class="category-tab" data-cat="Starter">Starters</span>
+                        <span class="category-tab" data-cat="Main">Mains</span>
+                        <span class="category-tab" data-cat="Dessert">Desserts</span>
+                        <span class="category-tab" data-cat="Beverage">Beverages</span>
+                    </div>
+                    <div class="menu-items-grid" id="pos-menu-grid">
+                        <!-- Dynamically filled with menu cards -->
+                    </div>
+                </div>
+
+                <!-- Right: Selected items cart -->
+                <div class="glass-panel order-cart" style="padding: 1rem;">
+                    <h5 style="margin-bottom: 1rem; font-weight: 600;">Current Basket</h5>
+                    
+                    <div class="form-group">
+                        <label for="pos-table-select">Select Table</label>
+                        <select class="form-control" id="pos-table-select">
+                            <option value="">Takeaway / Delivery</option>
+                            <!-- Table option list -->
+                        </select>
+                    </div>
+
+                    <div class="cart-items" id="pos-cart-items">
+                        <div style="margin: auto; color: var(--text-secondary);">Cart is empty. Click menu items to add.</div>
+                    </div>
+
+                    <div class="cart-total-section">
+                        <div class="cart-total-row">
+                            <span>Total Due:</span>
+                            <span id="pos-cart-total">$0.00</span>
+                        </div>
+                        <button class="btn btn-success" style="width: 100%;" id="btn-submit-pos-order">Process Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restock Item Modal -->
+    <div class="modal-overlay" id="modal-restock">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Restock Ingredient</h4>
+                <button class="modal-close" onclick="app.closeModal('modal-restock')">&times;</button>
+            </div>
+            <form id="form-restock-item">
+                <div class="modal-body">
+                    <input type="hidden" id="restock-item-id">
+                    <div class="form-group">
+                        <label id="restock-item-label">Restocking Item: Beef Patty</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="restock-quantity">Quantity to Add</label>
+                        <input type="number" class="form-control" id="restock-quantity" step="any" min="0.01" required value="10">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('modal-restock')">Cancel</button>
+                    <button type="submit" class="btn btn-success">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Order Items Details Modal -->
+    <div class="modal-overlay" id="modal-order-details">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="order-details-title">Order #12 Details</h4>
+                <button class="modal-close" onclick="app.closeModal('modal-order-details')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+                    <div>
+                        <div id="order-details-table" style="font-weight: 600;">Table: Table #3</div>
+                        <div id="order-details-time" style="font-size: 0.8rem; color: var(--text-secondary);">Ordered: 12:45 PM</div>
+                    </div>
+                    <div id="order-details-status">
+                        <span class="badge badge-preparing">Preparing</span>
+                    </div>
+                </div>
+                <div class="custom-table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-details-items-body">
+                            <!-- Dynamically loaded -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.15rem; margin-top: 1.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color);">
+                    <span>Total Amount:</span>
+                    <span id="order-details-total">$0.00</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="app.closeModal('modal-order-details')">Close</button>
+                <div id="order-details-action-buttons">
+                    <!-- Dynamic state transition actions -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert toast notification -->
+    <div class="alert-toast" id="app-alert-toast">
+        <span id="alert-toast-icon">ℹ️</span>
+        <span id="alert-toast-message">Everything sync'd correctly.</span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
